@@ -1,0 +1,15 @@
+take-me-to-your-leader.txt Organizing and highlighting vim leader mappings
+
+Author: Ryan Geary
+
+INTRODUCTION                            *take-me-to-your-leader*
+
+Leader commands are an incredibly valuable tool, and as such users will generate
+many of them. This plugin will help keep them organized and tidy.
+
+To use this plugin, users first have to do 3 things:
+1. Wrap their list of leader commands in a preceding comment that includes
+"leader-begin", and follow the comment with an empty line, and a succeeding
+comment that includes "leader-end" and precede the comment with an empty line.
+
+2. Organize leader commands into logical sections (paragraphs) with a header (comment) and
