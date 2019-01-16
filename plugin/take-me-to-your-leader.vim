@@ -52,4 +52,4 @@ function! SortLeaderCommands()
   call winrestview(l:save_view)
 endfunction
 
-command! SortLeaderCommands call <SID>SortLeaderCommands()
+command! SortLeaderCommands call SortLeaderCommands()
