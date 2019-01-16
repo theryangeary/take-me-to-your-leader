@@ -15,6 +15,7 @@ function! RangedCommand(start, end, command)
 endfunction
 
 function! HighlightLeaderHeaders()
+  " TODO clear previous matches
   let l:save_view = winsaveview()
   normal! gg
   let l:leader_begin = search(s:leader_begin_str) + 2
