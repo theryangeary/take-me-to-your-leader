@@ -49,7 +49,7 @@ endfunction
 
 function! SetLeaderHeaderHighlight()
   call UnhighlightLeaderHeaders()
-  if g:leader_highlight:
+  if g:leader_highlight
     call HighlightLeaderHeaders()
   endif
 endfunction
