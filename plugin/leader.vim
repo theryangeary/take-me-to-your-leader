@@ -66,10 +66,16 @@ function! SortLeaderCommands()
   let l:leader_end = search(s:leader_end_str) - 2
   " sort by section header
   let l:separator = "@@@"
-  call RangedCommand(l:leader_begin, l:leader_end, "substitute/\\(.\\+\\)\\n/\\1" . separator . "/")
+  call RangedCommand(
+        \ l:leader_begin,
+        \ l:leader_end,
+        \ "substitute/\\(.\\+\\)\\n/\\1" . separator . "/")
   let l:leader_end = search(s:leader_end_str) - 1
   call RangedCommand(l:leader_begin, l:leader_end, "sort i")
-  call RangedCommand(l:leader_begin, l:leader_end, "substitute/" . separator . "/\\r/g")
+  call RangedCommand(
+        \ l:leader_begin,
+        \ l:leader_end,
+        \ "substitute/" . separator . "/\\r/g")
   let l:leader_end = search(s:leader_end_str) - 2
   " sort each section of mappings
   call setpos(".", [0, l:leader_begin, 0, 0])
