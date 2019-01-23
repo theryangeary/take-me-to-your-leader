@@ -18,11 +18,11 @@ endif
 
 highlight LeaderTitle guifg=LightMagenta ctermfg=LightMagenta
 
-function! RangedCommand(start, end, command)
+function! s:RangedCommand(start, end, command)
   silent! execute a:start . "," . a:end . a:command
 endfunction
 
-function! HighlightLeaderHeaders()
+function! s:HighlightLeaderHeaders()
   if g:leader_highlight
     let l:save_view = winsaveview()
     normal! gg
@@ -40,39 +40,49 @@ function! HighlightLeaderHeaders()
   endif
 endfunction
 
-function! UnhighlightLeaderHeaders()
+function! s:UnhighlightLeaderHeaders()
   for current_match in s:match_list
     call matchdelete(current_match)
   endfor
   let s:match_list = []
 endfunction
 
-function! SetLeaderHeaderHighlight()
-  call UnhighlightLeaderHeaders()
+function! s:ResetLeaderHeaderHighlight()
+  call <SID>UnhighlightLeaderHeaders()
   if g:leader_highlight
-    call HighlightLeaderHeaders()
+    call <SID>HighlightLeaderHeaders()
   endif
+endfunction
+
+function! s:SetLeaderHighlight()
+  let g:leader_highlight = 1
+  call <SID>ResetLeaderHeaderHighlight()
+endfunction
+
+function! s:SetNoLeaderHighlight()
+  let g:leader_highlight = 0
+  call <SID>ResetLeaderHeaderHighlight()
 endfunction
 
 execute
       \ "autocmd BufRead,InsertLeave,InsertChange"
       \ g:leader_location
-      \ ":call SetLeaderHeaderHighlight()"
+      \ ":call <SID>ResetLeaderHeaderHighlight()"
 
-function! SortLeaderCommands()
+function! s:SortLeaderCommands()
   let l:save_view = winsaveview()
   normal! gg
   let l:leader_begin = search(s:leader_begin_str) + 2
   let l:leader_end = search(s:leader_end_str) - 2
   " sort by section header
   let l:separator = "@@@"
-  call RangedCommand(
+  call <SID>RangedCommand(
         \ l:leader_begin,
         \ l:leader_end,
         \ "substitute/\\(.\\+\\)\\n/\\1" . separator . "/")
   let l:leader_end = search(s:leader_end_str) - 1
-  call RangedCommand(l:leader_begin, l:leader_end, "sort i")
-  call RangedCommand(
+  call <SID>RangedCommand(l:leader_begin, l:leader_end, "sort i")
+  call <SID>RangedCommand(
         \ l:leader_begin,
         \ l:leader_end,
         \ "substitute/" . separator . "/\\r/g")
@@ -82,10 +92,12 @@ function! SortLeaderCommands()
   while line(".") < l:leader_end
     let l:start = search("map")
     let l:end = search("\\n\\n")
-    call RangedCommand(l:start, l:end, "sort i")
+    call <SID>RangedCommand(l:start, l:end, "sort i")
     call setpos(".", [0, l:end+1, 0, 0])
   endwhile
   call winrestview(l:save_view)
 endfunction
 
-command! SortLeaderCommands call SortLeaderCommands()
+command! SortLeaderCommands call <SID>SortLeaderCommands()
+command! SetLeaderHighlight call <SID>SetLeaderHighlight()
+command! SetNoLeaderHighlight call <SID>SetNoLeaderHighlight()
