@@ -31,7 +31,13 @@ execute "autocmd InsertLeave" g:leader_location ":SortLeaderCommands"
 To turn off highlighting:
 
 ```vim
-let g:leader_highlight = 0
+:SetNoLeaderHighlight
+```
+
+To turn it back on:
+
+```vim
+:SetLeaderHighlight
 ```
 
 #### Leader Mapping Location
@@ -69,15 +75,15 @@ _NOTE: This is not necessary if you keep your leader mappings in $MYVIMRC_
   let g:leader_location = expand("<sfile>:p")
 ```
 
+
 ------------------------------------------------------------------------------
 2. Wrap your list of leader commands in a preceding comment that includes
 "leader-begin", and follow the comment with an empty line, and a succeeding
 comment that includes "leader-end" and precede the comment with an empty
 line.
 
-For example:
-
 ```vim
+For example:
   " leader-begin
 
   nnoremap <leader>a :echo "Hello World"
