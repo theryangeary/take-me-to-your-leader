@@ -18,12 +18,6 @@ just open the file with your leader mappings and run:
 :SortLeaderCommands
 ```
 
-Might I recommend an auto command? Tweak it as you please.
-
-```vim
-execute "autocmd InsertLeave" g:leader_location ":SortLeaderCommands"
-```
-
 ## Options
 
 #### Highlighting
