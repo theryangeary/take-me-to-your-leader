@@ -76,14 +76,24 @@ These commands are used for organizing your leader mappings.
                             heading then sort each section alphabetically by
                             mapping type then mapping.
 
+           *take-me-to-your-leader-SetLeaderHighlight* *leader-SetLeaderHighlight*
+:SetLeaderHighlight         On by default, toggle highlight leader section
+                            headings on.
+
+      *take-me-to-your-leader-SetNoLeaderHighlight* *leader-SetNoLeaderHighlight*
+:SetNoLeaderHighlight       Off by default, toggle highlight leader section
+                            headings off.
+
 ==============================================================================
 HIGHLIGHTING              *take-me-to-your-leader-highlight* *leader-highlighting*
 
 By default, take-me-to-your-leader will highlight section headers. If you do
 NOT want this feature, just run
 >
-  let g:leader_highlight = 0
+  :SetNoLeaderHighlight
 <
+See |leader-SetNoLeaderHighlight| for more details.
+
 ==============================================================================
 ABOUT                                *take-me-to-your-leader-about* *leader-about*
 
