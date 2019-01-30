@@ -76,8 +76,8 @@ _NOTE: This is not necessary if you keep your leader mappings in $MYVIMRC_
 comment that includes "leader-end" and precede the comment with an empty
 line.
 
-```vim
 For example:
+```vim
   " leader-begin
 
   nnoremap <leader>a :echo "Hello World"
