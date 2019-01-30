@@ -1,7 +1,7 @@
 if exists('loaded_take_me_to_your_leader_plugin') | finish | endif
 let loaded_take_me_to_your_leader_plugin = 1
 
-let s:leader_begin_str = "leader.begin"
+let s:leader_begin_str = "leader#begin"
 let s:leader_end_str = "leader.end"
 
 if !exists('g:leader_location')
@@ -101,6 +101,12 @@ function! s:SortLeaderCommands()
 endfunction
 
 " end private functions }}}
+
+" public functions {{{
+function! leader#begin()
+  let g:leader_location = expand("<sfile>:p")
+endfunction
+" end public functions }}}
 
 " commands {{{
 
