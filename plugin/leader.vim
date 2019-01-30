@@ -18,6 +18,8 @@ endif
 
 highlight LeaderTitle guifg=LightMagenta ctermfg=LightMagenta
 
+" private functions {{{
+
 function! s:RangedCommand(start, end, command)
   silent! execute a:start . "," . a:end . a:command
 endfunction
@@ -98,6 +100,12 @@ function! s:SortLeaderCommands()
   call winrestview(l:save_view)
 endfunction
 
+" end private functions }}}
+
+" commands {{{
+
 command! SortLeaderCommands call <SID>SortLeaderCommands()
 command! SetLeaderHighlight call <SID>SetLeaderHighlight()
 command! SetNoLeaderHighlight call <SID>SetNoLeaderHighlight()
+
+" end commands }}}
