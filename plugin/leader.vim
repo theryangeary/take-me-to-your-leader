@@ -23,27 +23,28 @@ function! s:RangedCommand(start, end, command)
 endfunction
 
 function! s:HighlightLeaderHeaders()
-  if g:leader_highlight
-    let l:save_view = winsaveview()
-    normal! gg
-    let l:leader_begin = search(s:leader_begin_str) + 2
-    let l:leader_end = search(s:leader_end_str) - 2
-    let c = l:leader_begin
-    while c < l:leader_end
-      execute
-            \ 'call add(s:match_list, matchadd("LeaderTitle", "\\%' .
-            \ c .
-            \ 'l^\"\\zs.\\+\\ze"))'
-      let c += 1
-    endwhile
-    call winrestview(l:save_view)
-  endif
+  let l:save_view = winsaveview()
+  normal! gg
+  let l:leader_begin = search(s:leader_begin_str) + 2
+  let l:leader_end = search(s:leader_end_str) - 2
+  let c = l:leader_begin
+  while c < l:leader_end
+    execute
+          \ 'call add(s:match_list, matchadd("LeaderTitle", "\\%' .
+          \ c .
+          \ 'l^\"\\zs.\\+\\ze"))'
+    let c += 1
+  endwhile
+  call winrestview(l:save_view)
 endfunction
 
 function! s:UnhighlightLeaderHeaders()
-  for current_match in s:match_list
-    call matchdelete(current_match)
-  endfor
+  try
+    for current_match in s:match_list
+      call matchdelete(current_match)
+    endfor
+  catch /ID Not Found/
+  endtry
   let s:match_list = []
 endfunction
 
@@ -65,7 +66,8 @@ function! s:SetNoLeaderHighlight()
 endfunction
 
 execute
-      \ "autocmd BufRead,InsertLeave,InsertChange"
+      \ "autocmd BufRead,TextChanged,TextChangedI," .
+      \ "InsertEnter,InsertChange,InsertLeave,InsertCharPre,"
       \ g:leader_location
       \ ":call <SID>ResetLeaderHeaderHighlight()"
 
